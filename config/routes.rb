@@ -6,7 +6,18 @@ Rails.application.routes.draw do
   # Auth
   post '/signin', to: 'signin#create'
   delete '/signout', to: 'signin#destroy'
+
+  resources :states, only: [:index]
+  resources :form_submissions, only: [:create]
   
+  resources :reports, only: [:index] do
+    collection do
+      post :refresh
+    end
+  end
+
+  resources :livestock_summaries, only: [:index], path: 'livestock_summaries'
+
   namespace :api do
       
     end
